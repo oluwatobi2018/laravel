@@ -21,7 +21,8 @@
     <link rel="stylesheet" href="assets/vendor/font-awesome/css/font-awesome.css" />
     <link rel="stylesheet" href="assets/vendor/magnific-popup/magnific-popup.css" />
     <link rel="stylesheet" href="assets/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.css" />
-
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <!-- Theme CSS -->
     <link rel="stylesheet" href="assets/stylesheets/theme.css" />
 
@@ -59,7 +60,6 @@
                             {{--@enderror--}}
                         </div>
                     </div>
-
                     <div class="form-group mb-lg">
                         <div class="clearfix">
                             <label class="pull-left">Password</label>
@@ -108,6 +108,8 @@
 
         <p class="text-center text-muted mt-md mb-md">&copy; Copyright 2016. All Rights Reserved.</p>
     </div>
+
+
     {{--<div class="row justify-content-center">--}}
         {{--<div class="col-md-8">--}}
             {{--<div class="card">--}}
@@ -176,16 +178,20 @@
         {{--</div>--}}
     {{--</div>--}}
 </section>
+
 <!-- end: page -->
 
 <!-- Vendor -->
 <script src="assets/vendor/jquery/jquery.js"></script>
+
+
 <script src="assets/vendor/jquery-browser-mobile/jquery.browser.mobile.js"></script>
 <script src="assets/vendor/bootstrap/js/bootstrap.js"></script>
 <script src="assets/vendor/nanoscroller/nanoscroller.js"></script>
 <script src="assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 <script src="assets/vendor/magnific-popup/jquery.magnific-popup.js"></script>
 <script src="assets/vendor/jquery-placeholder/jquery-placeholder.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 <!-- Theme Base, Components and Settings -->
 <script src="assets/javascripts/theme.js"></script>
@@ -195,6 +201,12 @@
 
 <!-- Theme Initialization Files -->
 <script src="assets/javascripts/theme.init.js"></script>
-
+@if(Session::has('message'))
+    <script>
+        $(function(){
+            toastr.warning("{{ Session::get('message') }}");
+        })
+    </script>
+@endif
 </body>
 </html>

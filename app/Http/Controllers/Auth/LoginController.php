@@ -34,7 +34,7 @@ class LoginController extends Controller
     {
         $email = $request->email;
         $user = User::where('email', $email)->first();
-        if($user->approve == "1")
+        if($user && $user->approve == "1")
         {
             $this->validateLogin($request);
 
@@ -63,8 +63,11 @@ class LoginController extends Controller
 
             return $this->sendFailedLoginResponse($request);
         }
+        else if( !$user )
+            return redirect('/login')->with('message', 'Not Exist User');
         else
-            return redirect('/');
+            return redirect('/login')->with('message', 'Not Approve');
+
 
     }
 

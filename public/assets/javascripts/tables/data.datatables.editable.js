@@ -335,8 +335,9 @@ Theme Version: 	1.7.0
 					if ( $actions.get(0) ) {
 						this.rowSetActionsDefault( $row );
 					}
+                    toastr.success("Successfully Save data");
 
-					this.datatable.draw();
+                    this.datatable.draw();
 				},
 
 
@@ -344,7 +345,7 @@ Theme Version: 	1.7.0
             if ( $row.hasClass('adding') ) {
                 this.$addButton.removeAttr( 'disabled' );
             }
-
+            toastr.success("Successfully Delete data");
             this.datatable.row( $row.get(0) ).remove().draw();
         },
 

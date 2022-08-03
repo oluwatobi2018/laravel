@@ -34,17 +34,18 @@
 
     <!-- Theme Custom CSS -->
     <link rel="stylesheet" href="{{ asset('assets/stylesheets/theme-custom.css') }}">
-
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <!-- Head Libs -->
 
-    <script src="{{ asset('assets/vendor/jquery/jquery.js') }}"></script>
+    {{--<script src="{{ asset('assets/vendor/jquery/jquery.js') }}"></script>--}}
 
-    {{--<script src="https://code.jquery.com/jquery-3.5.1.js"></script>--}}
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="{{ asset('assets/vendor/select2/js/select2.js') }}"></script>
     <script src="{{ asset('assets/vendor/jquery-datatables/media/js/jquery.dataTables.js') }}"></script>
     <script src="{{ asset('assets/vendor/jquery-datatables-bs3/assets/js/datatables.js') }}"></script>
-    {{--<script src="https://cdn.datatables.net/fixedheader/3.2.3/js/dataTables.fixedHeader.min.js"></script>--}}
-
+    <script src="https://cdn.datatables.net/fixedheader/3.2.3/js/dataTables.fixedHeader.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="{{ asset('assets/vendor/modernizr/modernizr.js') }}"></script>
 
 </head>
