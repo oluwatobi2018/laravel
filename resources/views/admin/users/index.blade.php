@@ -29,7 +29,7 @@
                     </thead>
                     <tbody>
                         @foreach( $users as $user )
-                            <tr data-item-id="55">
+                            <tr>
                                 <td class="user_id" hidden>{{ $user->id }}</td>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
@@ -71,10 +71,13 @@
         </div>
         <!-- end: page -->
     </section>
-    <script src="{{ asset('assets/vendor/select2/js/select2.js') }}"></script>
-    <script src="{{ asset('assets/vendor/jquery-datatables/media/js/jquery.dataTables.js') }}"></script>
-    <script src="{{ asset('assets/vendor/jquery-datatables-bs3/assets/js/datatables.js') }}"></script>
     <script src="{{ asset('assets/javascripts/tables/examples.datatables.editable.js') }}"></script>
 
+    <script>
+        $(document).ready(function() {
+            $('input').addClass('form-control');
+            $('select').addClass('form-control');
+        });
 
+    </script>
 @endsection

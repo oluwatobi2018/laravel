@@ -11,8 +11,7 @@ class UserManageController extends Controller
 
     public function index(Request $request)
     {
-        $data = User::all();
-
+        $data = User::orderBy('id', 'DESC')->get();
         return view('admin.users.index', ['users' => $data]);
     }
 
@@ -20,6 +19,7 @@ class UserManageController extends Controller
         $data = $request->parms;
         $userId = $data[0];
         $user_check = User::where('id', $userId)->get();
+        $new_user = false;
         if(!$data[0])
         {
             User::create([
@@ -39,9 +39,13 @@ class UserManageController extends Controller
                 'password1' => $data[3],
             ];
             User::where('id', $userId)->update($userUpdate);
+            $new_user = true;
         }
+        $user = User::get()->last();
+        $result['user_id'] = $user->id;
+        $result['new_user'] = $new_user;
 
-        return response()->json('success');
+        return response()->json($result);
     }
 
     public function user_delete(Request $request) {

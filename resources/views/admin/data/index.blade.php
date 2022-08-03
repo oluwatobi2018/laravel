@@ -1,10 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <link rel="stylesheet" href="{{ asset('assets/vendor/select2/css/select2.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/vendor/select2-bootstrap-theme/select2-bootstrap.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/vendor/jquery-datatables-bs3/assets/css/datatables.css') }}" />
-    <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.2.3/css/fixedHeader.dataTables.min.css" />
+
 
     <section role="main" class="content-body">
         <!-- start: page -->
@@ -18,7 +15,7 @@
                         </div>
                     </div>
                     <div class="col-sm-3" style="display: flex">
-                        <label class="justify-content-center"> Month: </label>
+                        <span style="margin:auto"> Month: </span>
                         <select id="selectMonth" class='form-control'>
                             <option value=" ">All</option>
                             <option value="01">1</option>

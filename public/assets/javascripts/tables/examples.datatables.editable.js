@@ -41,6 +41,10 @@ Theme Version: 	1.7.0
         },
 
         build: function() {
+            $('#datatable-editable thead tr')
+                .clone(true)
+                .addClass('filters')
+                .appendTo('#datatable-editable thead');
             this.datatable = this.$table.DataTable({
                 aoColumns: [
                 	null,
@@ -48,7 +52,58 @@ Theme Version: 	1.7.0
                     null,
                     null,
                     { "bSortable": false }
-                ]
+                ],
+                orderCellsTop: true,
+                fixedHeader: true,
+                initComplete: function () {
+                    var api = this.api();
+
+                    // For each column
+                    api
+                        .columns()
+                        .eq(0)
+                        .each(function (colIdx) {
+                            // Set the header cell to contain the input element
+                            var cell = $('.filters th').eq(
+                                $(api.column(colIdx).header()).index()
+                            );
+                            var title = $(cell).text();
+                            $(cell).html('<input type="text" placeholder="' + title + '" />');
+
+                            // On every keypress in this input
+                            $(
+                                'input',
+                                $('.filters th').eq($(api.column(colIdx).header()).index())
+                            )
+                                .off('keyup change')
+                                .on('change', function (e) {
+                                    // Get the search value
+                                    $(this).attr('title', $(this).val());
+                                    var regexr = '({search})'; //$(this).parents('th').find('select').val();
+
+                                    var cursorPosition = this.selectionStart;
+                                    // Search the column for that value
+                                    api
+                                        .column(colIdx)
+                                        .search(
+                                            this.value != ''
+                                                ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                                : '',
+                                            this.value != '',
+                                            this.value == ''
+                                        )
+                                        .draw();
+                                })
+                                .on('keyup', function (e) {
+                                    e.stopPropagation();
+
+                                    $(this).trigger('change');
+                                    $(this)
+                                        .focus()[0]
+                                        .setSelectionRange(cursorPosition, cursorPosition);
+                                });
+                        });
+                },
             });
 
             window.dt = this.datatable;
@@ -170,7 +225,8 @@ Theme Version: 	1.7.0
                 '<a href="#" class="hidden on-editing save-row"><i class="fa fa-save"></i></a>',
                 '<a href="#" class="hidden on-editing cancel-row"><i class="fa fa-times"></i></a>',
                 '<a href="#" class="on-default edit-row"><i class="fa fa-pencil"></i></a>',
-                '<a href="#" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>'
+                '<a href="#" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>',
+                '<a href="#" class="on-default approve-row"><i  style="color: red" class="fa fa-check"></i></a>\n'
             ].join(' ');
 
             data = this.datatable.row.add([ '', '', '', '', actions ]);
@@ -245,7 +301,7 @@ Theme Version: 	1.7.0
 						}
 					});
 					console.log(parms)
-
+                    var row_num, new_user;
 					$.ajax({
 						url: '/admin/user_save',
 						method: 'GET',
@@ -253,7 +309,10 @@ Theme Version: 	1.7.0
 							parms: parms,
 						},
 						success: function(response) {
-
+                            row_num = response.user_id;
+                            new_user = response.new_user;
+                            if(new_user == false)
+                                window.location.replace('users')
 						}
 					});
 					var _self     = this,
@@ -283,7 +342,9 @@ Theme Version: 	1.7.0
 						this.rowSetActionsDefault( $row );
 					}
 
-					this.datatable.draw();
+					this.datatable.draw(true);
+
+
 				},
 
 
